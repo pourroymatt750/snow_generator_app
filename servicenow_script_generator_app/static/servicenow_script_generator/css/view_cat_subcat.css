@@ -1,0 +1,68 @@
+.page-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tables-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.table-wrapper {
+  flex: 1 1 300px;
+  max-width: 600px;
+}
+
+.table-wide {
+  width: 100%;
+}
+
+/** NEW CSS */
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-form input[type="text"],
+.search-form select {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  background-color: #fff;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.search-form input[type="text"]:focus,
+.search-form select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+}
+
+/* Make select and inputs the same height and visual weight */
+.search-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff url("data:image/svg+xml,%3Csvg width='14' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23999' d='M1 1l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center/10px;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+.search-form button {
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Keep layout spacing consistent */
+.table-box {
+  margin-top: 10px;
+}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'servicenow_script_generator/css/confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="card-title text-danger">Confirm Delete</h3>
+
+      {% if subcategories_count == 1 %}
+        <p>
+          Cannot delete category: <strong>{{ object.name }}</strong> because it has a subcategory attached.
+        </p>
+        <p>Before deleting this category, please either:</p>
+        <ol>
+          <li>Delete the subcategory first.</li>
+          <li>Or change the category the subcategory is associated with.</li>
+        </ol>
+        <a href="{% url cancel_url %}" class="btn btn-secondary">Back</a>
+      {% elif subcategories_count > 1 %}
+        <p>
+          Cannot delete category:
+          <strong>{{ object.name }}</strong> because it has {{ subcategories_count }} subcategories attached.
+        </p>
+        <p>Before deleting this category, please either:</p>
+        <ol>
+          <li>Delete the subcategories first.</li>
+          <li>Or change the category the subcategories are associated with.</li>
+        </ol>
+        <a href="{% url cancel_url %}" class="btn btn-secondary">Back</a>
+      {% else %}
+        <p>
+          Are you sure you want to delete this <strong>{{ type }}</strong>:
+          <em>{{ object.name }}</em>?
+        </p>
+
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+          <a href="{% url cancel_url %}" class="btn btn-secondary">Cancel</a>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

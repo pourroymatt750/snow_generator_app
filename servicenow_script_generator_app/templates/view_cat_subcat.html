@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}View Categories & Subcategories{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'servicenow_script_generator/css/view_cat_subcat.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Categories and Subcategories</h2>
+
+<div class="tables-container">
+
+  <!-- Category Table -->
+  <div class="card table-wrapper">
+    <div class="card-body">
+      <h3>Categories ({{ category_count }})</h3>
+
+      <!-- Category Search -->
+      <form method="get" action="{% url 'view_cat_subcat' %}" class="search-form">
+        <input type="text" name="category_search" placeholder="Search categories..." value="{{ request.GET.category_search }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <table class="table-box">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th style="width: 180px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for category in categories %}
+            <tr>
+              <td>{{ category.name }}</td>
+              <td>
+                <a href="{% url 'edit_category' category.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete_category' category.id %}" class="btn btn-danger">Delete</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="2">No categories yet</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Subcategory Table -->
+  <div class="card table-wrapper">
+    <div class="card-body">
+      <h3>Subcategories ({{ subcategory_count }})</h3>
+
+      <!-- Subcategory Search -->
+      <form method="get" action="{% url 'view_cat_subcat' %}" class="search-form">
+        <input type="text" name="subcategory_search" placeholder="Search subcategories..." value="{{ request.GET.subcategory_search }}" >
+        <select name="search_by">
+          <option value="subcategory" {% if request.GET.search_by == "subcategory" %}selected{% endif %}>Subcategory</option>
+          <option value="category" {% if request.GET.search_by == "category" %}selected{% endif %}>Category</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <table class="table-box table-wide">
+        <thead>
+          <tr>
+            <th>Subcategory</th>
+            <th>Category</th>
+            <th style="width: 180px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sub in subcategories %}
+            <tr>
+              <td>{{ sub.name }}</td>
+              <td>{{ sub.category.name }}</td>
+              <td>
+                <a href="{% url 'edit_subcategory' sub.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete_subcategory' sub.id %}" class="btn btn-danger">Delete</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="3">No subcategories yet</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

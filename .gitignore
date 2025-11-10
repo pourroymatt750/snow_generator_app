@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.pyw
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Django stuff
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment and secrets
+.env
+*.env
+secrets.json
+config.json
+
+# Migrations (optional if you want to regenerate)
+*/migrations/
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# PyInstaller
+*.spec
+
+# Coverage / testing
+htmlcov/
+.tox/
+.coverage
+*.cover
+*.py,cover
+.cache
+nosetests.xml
+coverage.xml
+*.mo
+*.pot

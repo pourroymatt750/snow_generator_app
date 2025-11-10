@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'servicenow_script_generator/css/generate_scripts.css' %}">
+
+{% block title %}Generate Scripts{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'servicenow_script_generator/js/generate_scripts.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-4" style="text-align: center;">Generate Scripts</h2>
+
+<!-- ========== CATEGORY SECTION ========== -->
+<div class="section">
+  <h3 style="margin-left: 1em;">1. Add categories from the SNOW category table</h3>
+
+  <div class="indent-block" style="margin-left: 3em;">
+    <h4>Instructions:</h4>
+    <ol>
+      <li style="margin-bottom: 10px;">
+        Go to the 
+        <a href="https://globusfamilydev.service-now.com/now/nav/ui/classic/params/target/sys_choice_list.do%3Fsysparm_query%3Delement%253Dcategory%255Ename%253Dincident%26sysparm_first_row%3D1%26sysparm_view%3D" target="_blank">
+          SNOW Category table
+        </a>.
+      </li>
+      <li style="margin-bottom: 10px;">Right click in the circled area next to the "Table" column name. Then hit "Export" and "CSV".</li>
+      <img src="{% static 'servicenow_script_generator/images/export-snow-category.jpg' %}" alt="Category Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
+      <li>Upload attachments here: </li>
+      <form action="{% url 'upload_category_csv' %}" method="post" enctype="multipart/form-data" class="upload-form">
+        {% csrf_token %}
+        <div class="mb-2" style="max-width: 250px;">
+          <input type="file" name="category_csv_file" accept=".csv" required class="form-control">
+        </div>
+        <div>
+          <button style="margin-top:5px;" class="btn btn-success" type="submit">Upload</button>
+        </div>
+      </form>
+
+      {% if upload_message %}
+        <p class="upload-message">{{ upload_message }}</p>
+      {% endif %}
+    </ol>
+  </div>
+</div>
+
+<!-- ========== SUBCATEGORY SECTION ========== -->
+<div class="section">
+  <h3 style="margin-left: 1em;">2. Add subcategories from the SNOW subcategory table</h3>
+
+  <div class="indent-block" style="margin-left: 3em;">
+    <h4>Instructions:</h4>
+    <ol>
+      <li style="margin-bottom: 10px;">
+        Go to the 
+        <a href="https://globusfamilydev.service-now.com/now/nav/ui/classic/params/target/sys_choice_list.do%3Fsysparm_query%3Delement%253Dsubcategory%255Ename%253Dincident%26sysparm_first_row%3D1%26sysparm_view%3D" target="_blank">
+          SNOW SubCategory table
+        </a>.
+      </li>
+      <li style="margin-bottom: 10px;">Right click in the circled area next to the "Table" column name. Then hit "Export" and "CSV".</li>
+      <img src="{% static 'servicenow_script_generator/images/export-snow-subcategory.jpg' %}" alt="SubCategory Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
+      <li>Upload attachments here: </li>
+      <form action="{% url 'upload_subcategory_csv' %}" method="post" enctype="multipart/form-data" class="upload-form">
+        {% csrf_token %}
+        <div class="mb-2" style="max-width: 250px;">
+          <input type="file" name="subcategory_csv_file" accept=".csv" required class="form-control">
+        </div>
+        <div>
+          <button style="margin-top:5px;" class="btn btn-success" type="submit">Upload</button>
+        </div>
+      </form>
+
+      {% if upload_message_subcategories %}
+        <p class="upload-message" style="white-space: pre-line;">{{ upload_message_subcategories }}</p>
+      {% endif %}
+    </ol>
+  </div>
+</div>
+
+<!-- ========== SCRIPT GENERATION SECTION ========== -->
+<div class="section">
+  <h3 style="margin-left: 1em;">3. Generate scripts</h3>
+
+  <div class="indent-block" style="margin-left: 3em;">
+    <form id="generate-form" class="upload-form" style="display: flex; justify-content: center; margin-bottom: 20px;">
+      <button class="btn btn-primary mb-3" type="submit">Generate Scripts</button>
+    </form>
+
+    <!-- Hidden elements holding the full JS strings -->
+    <textarea id="hidden-cat-script" hidden>{{ category_based_on_subcat_script|safe }}</textarea>
+    <textarea id="hidden-subcat-script" hidden>{{ subcat_based_on_category_script|safe }}</textarea>
+
+    <div class="message" style="display: flex; justify-content: center; gap: 40px; text-align: center; margin-top: 20px;">
+      <!-- Category script block -->
+      <div class="script-block">
+        <h5><strong>Category based on subcategory script</strong></h5>
+        <button class="btn btn-dark" onclick="copyCode('category-script-textarea', this)">
+            📋 Copy
+        </button>
+        <div class="code-block">
+          <textarea style="background-color: black; width: 100%;" id="category-script-textarea" class="code-box" rows="15" readonly></textarea>
+        </div>
+      </div>
+
+      <!-- Subcategory script block -->
+      <div class="script-block">
+        <h5><strong>Subcategory based on category script</strong></h5>
+        <button class="btn btn-dark" onclick="copyCode('subcategory-script-textarea', this)">
+          📋 Copy
+        </button>
+        <div class="code-block">
+          <textarea style="background-color: black; width: 100%; max-width: 100%; " id="subcategory-script-textarea" class="code-box" rows="15" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

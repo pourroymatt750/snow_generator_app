@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Edit {{ type }}{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Edit {{ type }}</h3>
+
+    <form method="post">
+      {% csrf_token %}
+
+      {% if type == "Category" %}
+        <div class="form-group">
+          <label for="name">Category Name</label>
+          <input type="text" id="name" name="name" class="input-box" value="{{ object.name }}" required>
+        </div>
+      {% else %}
+        <div class="form-group">
+          <label for="name">Subcategory Name</label>
+          <input type="text" id="name" name="name" class="input-box" value="{{ object.name }}" required>
+        </div>
+
+        <div class="form-group">
+          <label>Category (cannot edit here, must edit in Category)</label>
+          <input type="text" value="{{ object.category.name }}" class="input-box" disabled>
+        </div>
+      {% endif %}
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'view_cat_subcat' %}" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

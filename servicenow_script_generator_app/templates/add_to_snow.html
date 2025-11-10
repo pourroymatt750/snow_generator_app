@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Add to ServiceNOW Category and Subcategory tables{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'servicenow_script_generator/css/add_to_snow.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'servicenow_script_generator/js/add_to_snow.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-4" style="text-align: center;">Add to ServiceNOW Category and Subcategory tables</h2>
+
+<!-- ========== CATEGORY SECTION ========== -->
+<div class="section">
+  <h3 style="margin-left: 1em;">1. Add each category to the Incident SNOW category</h3>
+
+  <!-- Request and Incident links -->
+  <div class="indent-block" style="margin-left: 3em;">
+    <h4>
+      Link to the
+      <a href="https://globusfamilydev.service-now.com/now/nav/ui/classic/params/target/sys_choice_list.do%3Fsysparm_query%3Delement%253Dcategory%255Ename%253Dincident%26sysparm_first_row%3D1%26sysparm_view%3D" target="_blank">
+        Incident Category Table
+      </a>
+    </h4>
+
+    <ol>
+      <li style="margin-bottom: 10px;">Click the "New" button to add a new category.</li>
+      <img src="{% static 'servicenow_script_generator/images/category-new.jpg' %}" alt="New Category" width="850" style="margin-bottom: 30px;">
+      <li style="margin-bottom: 12px;">
+        Fill in each each category in both tables. Click the “Done” button when done so you know 
+        where you are in the category list. Make sure to fill out both “Label” and “Value”.
+      </li>
+      <img src="{% static 'servicenow_script_generator/images/Category-SNOW.jpg' %}" alt="Category SNOW" width="850">
+      <div class="card-container">
+        {% for category in categories %}
+          <div class="card" id="category-card-{{ category.id }}">
+            <p><strong>Label (Category):</strong> {{ category.name }}</p>
+            <p><strong>Value (Category):</strong> {{ category.name }}</p>
+            <button class="done-btn" onclick="markDone(this)">DONE</button>
+          </div>
+        {% empty %}
+          <p>No categories found.</p>
+        {% endfor %}
+      </div>
+    </ol>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== SUBCATEGORY SECTION ========== -->
+<div class="section">
+  <h3 style="margin-left: 1em;">2. Add each subcategory to the Incident SNOW subcategory</h3>
+
+  <!-- Request and Incident links -->
+  <div class="indent-block" style="margin-left: 3em;">
+    <h4>
+      Link to the 
+      <a href="https://globusfamilydev.service-now.com/now/nav/ui/classic/params/target/sys_choice_list.do%3Fsysparm_query%3Delement%253Dsubcategory%255Ename%253Dincident%26sysparm_first_row%3D1%26sysparm_view%3D" target="_blank">
+        Incident Subcategory Table
+      </a>
+    </h4>
+
+    <ol>
+      <li style="margin-bottom: 10px;">Click the "New" button to add a new subcategory.</li>
+      <img src="{% static 'servicenow_script_generator/images/subcategory-new.jpg' %}" alt="New Subcategory" width="600" style="margin-bottom: 30px;">
+      <li style="margin-bottom: 12px;">
+        Fill in each subcategory in both tables. Be sure to select the correct <strong>Dependent Value (Category)</strong>  
+        Click the “Done” button when finished so you know where you are in the subcategory list.
+      </li>
+      <img src="{% static 'servicenow_script_generator/images/subcategory-SNOW.jpg' %}" alt="Subcategory SNOW" width="600">
+
+      <div class="card-container">
+        {% for sub in subcategories %}
+          <div class="card" id="subcategory-card-{{ sub.id }}">
+            <p><strong>Label (Subcategory):</strong> {{ sub.name }}</p>
+            <p><strong>Value (Subcategory):</strong> {{ sub.name }}</p>
+            <p><strong>Dependent Value (Category):</strong> {{ sub.category.name }}</p>
+            <button class="done-btn" onclick="markDone(this)">DONE</button>
+          </div>
+        {% empty %}
+          <p>No subcategories found.</p>
+        {% endfor %}
+      </div>
+    </ol>
+  </div>
+</div>
+
+{% endblock %}

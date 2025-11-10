@@ -1,0 +1,84 @@
+h2, h3 {
+  text-align: center;
+  color: #4a4a4a;
+}
+
+/* Form layout */
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Outline grouping for category/subcategory/combo area */
+#combo-form {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 25px 30px;
+  background-color: #fafafa;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 700px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 0 0 250px;
+  text-align: left;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.form-group label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Modern textbox styling */
+.input-box {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  transition: all 0.2s ease;
+}
+
+.input-box:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  outline: none;
+  background-color: #fff;
+}
+
+.subcategory-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.subcategory-wrapper button {
+  margin-left: 5px;
+  flex-shrink: 0;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#combo-table {
+  width: 50%;
+  margin: 0 auto;
+}
