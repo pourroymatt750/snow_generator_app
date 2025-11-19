@@ -4,3 +4,15 @@ Django==4.2.24
 sqlparse==0.5.3
 typing_extensions==4.13.2
 openpyxl>=3.0.10
+
+# Required for PostgreSQL
+psycopg2-binary>=2.9
+
+# Required for Render database config
+dj-database-url>=2.1.0
+
+# Required for serving static files on Render
+whitenoise>=6.6.0
+
+# Gunicorn web server (Render runs your app with this)
+gunicorn>=22.0.0
