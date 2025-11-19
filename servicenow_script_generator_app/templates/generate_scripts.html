@@ -13,66 +13,66 @@
 
 <!-- ========== CATEGORY SECTION ========== -->
 <div class="section">
-  <h3 style="margin-left: 1em;">1. Add categories from the SNOW category table</h3>
+  <h3 style="margin-left: 1em;">1. Upload the new categories to the SNOW category table via Excel</h3>
 
   <div class="indent-block" style="margin-left: 3em;">
     <h4>Instructions:</h4>
     <ol>
-      <li style="margin-bottom: 10px;">
+      <li style="margin-bottom: 10px;">Click the below button to generate the Category table excel file:</li>
+      <form action="{% url 'generate_category_excel' %}" method="get">
+        <button type="submit" class="btn btn-primary">
+          Generate Category Excel
+        </button>
+      </form>
+      <li style="margin-top: 10px; margin-bottom: 10px;">
         Go to the 
         <a href="https://globusfamilydev.service-now.com/now/nav/ui/classic/params/target/sys_choice_list.do%3Fsysparm_query%3Delement%253Dcategory%255Ename%253Dincident%26sysparm_first_row%3D1%26sysparm_view%3D" target="_blank">
           SNOW Category table
         </a>.
       </li>
-      <li style="margin-bottom: 10px;">Right click in the circled area next to the "Table" column name. Then hit "Export" and "CSV".</li>
-      <img src="{% static 'servicenow_script_generator/images/export-snow-category.jpg' %}" alt="Category Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
-      <li>Upload attachments here: </li>
-      <form action="{% url 'upload_category_csv' %}" method="post" enctype="multipart/form-data" class="upload-form">
-        {% csrf_token %}
-        <div class="mb-2" style="max-width: 250px;">
-          <input type="file" name="category_csv_file" accept=".csv" required class="form-control">
-        </div>
-        <div>
-          <button style="margin-top:5px;" class="btn btn-success" type="submit">Upload</button>
-        </div>
-      </form>
-
-      {% if upload_message %}
-        <p class="upload-message">{{ upload_message }}</p>
-      {% endif %}
+      <li style="margin-bottom: 10px;">Click the ☰ icon, then "Show", and then "100 rows per page".</li>
+      <img src="{% static 'servicenow_script_generator/images/show-100-rows-category.jpg' %}" alt="Category Table Click" class="delete-old-table-image" width="950" style="margin-bottom: 30px;">
+      <li style="margin-bottom: 10px;">Click the top left hand square and delete out what's currently in the table by clicking "Actions on selected rows". 
+        <br><strong>NOTE:</strong> You can only delete 100 records at a time. So if you have more than 100 records, you will need to run this operation over and over until you deleted all the records.
+      </li>
+      <img src="{% static 'servicenow_script_generator/images/delete-old-category-table.jpg' %}" alt="Category Table Click" class="delete-old-table-image" width="950" style="margin-bottom: 30px;">
+      <li style="margin-bottom: 10px;">Right click in the circled area next to the "Table" column name. Then hit "Import".</li>
+      <img src="{% static 'servicenow_script_generator/images/get-to-category-import-page.jpg' %}" alt="Category Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
+      <li style="margin-bottom: 10px;">Follow the directions in the screenshot below</li>
+      <img src="{% static 'servicenow_script_generator/images/insert-new-category-table.jpg' %}" alt="Category Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
     </ol>
   </div>
 </div>
 
 <!-- ========== SUBCATEGORY SECTION ========== -->
 <div class="section">
-  <h3 style="margin-left: 1em;">2. Add subcategories from the SNOW subcategory table</h3>
+  <h3 style="margin-left: 1em;">2. Upload the new subcategories to the SNOW subcategory table via Excel</h3>
 
   <div class="indent-block" style="margin-left: 3em;">
     <h4>Instructions:</h4>
     <ol>
-      <li style="margin-bottom: 10px;">
+      <li style="margin-bottom: 10px;">Click the below button to generate the Subcategory table excel file:</li>
+      <form action="{% url 'generate_subcategory_excel' %}" method="get">
+        <button type="submit" class="btn btn-primary">
+          Generate Subcategory Excel
+        </button>
+      </form>
+      <li style="margin-top: 10px; margin-bottom: 10px;">
         Go to the 
         <a href="https://globusfamilydev.service-now.com/now/nav/ui/classic/params/target/sys_choice_list.do%3Fsysparm_query%3Delement%253Dsubcategory%255Ename%253Dincident%26sysparm_first_row%3D1%26sysparm_view%3D" target="_blank">
-          SNOW SubCategory table
+          SNOW Subcategory table
         </a>.
       </li>
-      <li style="margin-bottom: 10px;">Right click in the circled area next to the "Table" column name. Then hit "Export" and "CSV".</li>
-      <img src="{% static 'servicenow_script_generator/images/export-snow-subcategory.jpg' %}" alt="SubCategory Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
-      <li>Upload attachments here: </li>
-      <form action="{% url 'upload_subcategory_csv' %}" method="post" enctype="multipart/form-data" class="upload-form">
-        {% csrf_token %}
-        <div class="mb-2" style="max-width: 250px;">
-          <input type="file" name="subcategory_csv_file" accept=".csv" required class="form-control">
-        </div>
-        <div>
-          <button style="margin-top:5px;" class="btn btn-success" type="submit">Upload</button>
-        </div>
-      </form>
-
-      {% if upload_message_subcategories %}
-        <p class="upload-message" style="white-space: pre-line;">{{ upload_message_subcategories }}</p>
-      {% endif %}
+      <li style="margin-bottom: 10px;">Click the ☰ icon, then "Show", and then "100 rows per page".</li>
+      <img src="{% static 'servicenow_script_generator/images/show-100-rows-subcategory.jpg' %}" alt="Category Table Click" class="delete-old-table-image" width="950" style="margin-bottom: 30px;">
+      <li style="margin-bottom: 10px;">Click the top left hand square and delete out what's currently in the table by clicking "Actions on selected rows". 
+        <br><strong>NOTE:</strong> You can only delete 100 records at a time. So if you have more than 100 records, you will need to run this operation over and over until you deleted all the records.
+      </li>
+      <img src="{% static 'servicenow_script_generator/images/delete-old-subcategory-table.jpg' %}" alt="SubCategory Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
+      <li style="margin-bottom: 10px;">Right click in the circled area next to the "Table" column name. Then hit "Import".</li>
+      <img src="{% static 'servicenow_script_generator/images/get-to-subcategory-import-page.jpg' %}" alt="Category Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
+      <li style="margin-bottom: 10px;">Follow the directions in the screenshot below</li>
+      <img src="{% static 'servicenow_script_generator/images/insert-new-subcategory-table.jpg' %}" alt="Category Table Click" class="instruction-image" width="950" style="margin-bottom: 30px;">
     </ol>
   </div>
 </div>
@@ -98,7 +98,7 @@
             📋 Copy
         </button>
         <div class="code-block">
-          <textarea style="background-color: black; width: 100%;" id="category-script-textarea" class="code-box" rows="15" readonly></textarea>
+          <textarea style="background-color: black; width: 100%; color: white;" id="category-script-textarea" class="code-box" rows="15" readonly></textarea>
         </div>
       </div>
 
@@ -109,7 +109,7 @@
           📋 Copy
         </button>
         <div class="code-block">
-          <textarea style="background-color: black; width: 100%; max-width: 100%; " id="subcategory-script-textarea" class="code-box" rows="15" readonly></textarea>
+          <textarea style="background-color: black; width: 100%; max-width: 100%; color: white;" id="subcategory-script-textarea" class="code-box" rows="15" readonly></textarea>
         </div>
       </div>
     </div>

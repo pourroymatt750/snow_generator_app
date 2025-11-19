@@ -3,7 +3,7 @@
 
 <div class="navbar">
   <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+  <a href="{% url 'add_cat_subcat' %}" class="{% if request.path == '/add_cat_subcat/' %}active{% endif %}">Add Cat/Subcat</a>
+  <a href="{% url 'generate_scripts_page' %}" class="{% if request.path == '/generate_scripts_page/' %}active{% endif %}">Generate Excel/Scripts</a>
   <a href="{% url 'view_cat_subcat' %}" class="{% if request.path == '/view/' %}active{% endif %}">View Cat/Subcat</a>
-  <a href="{% url 'add_to_snow' %}" class="{% if request.path == '/add_to_snow/' %}active{% endif %}">Add to SNOW</a>
-  <a href="{% url 'generate_scripts_page' %}" class="{% if request.path == '/generate_scripts_page/' %}active{% endif %}">Generate Scripts</a>
 </div> 

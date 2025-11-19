@@ -26,13 +26,15 @@ urlpatterns = [
     # Category CRUD
     path("category/<int:pk>/edit/", views.edit_category, name="edit_category"),
     path("category/<int:pk>/delete/", views.delete_category, name="delete_category"),
+    path("delete_all_categories/", views.delete_all_categories, name="delete_all_categories"),
 
     # SubCategory CRUD
     path("subcategory/<int:pk>/edit/", views.edit_subcategory, name="edit_subcategory"),
     path("subcategory/<int:pk>/delete/", views.delete_subcategory, name="delete_subcategory"),
+    path("delete_all_subcategories/", views.delete_all_subcategories, name="delete_all_subcategories"),
 
-    # Add to ServiceNOW tables
-    path("add_to_snow/", views.add_to_snow, name="add_to_snow"),
+    # Add Category/SubCategory page
+    path("add_cat_subcat/", views.add_cat_subcat, name="add_cat_subcat"),
 
     # Generate SNOW scripts page
     path("generate_scripts_page/", views.generate_scripts_page, name="generate_scripts_page"),
@@ -40,6 +42,10 @@ urlpatterns = [
     # Handle csv uploads
     path("upload_category_csv/", views.upload_category_csv, name="upload_category_csv"),
     path("upload_subcategory_csv/", views.upload_subcategory_csv, name="upload_subcategory_csv"),
+
+    # Generate excel files for SNOW upload
+    path("generate_category_excel/", views.generate_category_excel, name="generate_category_excel"),
+    path("generate_subcategory_excel/", views.generate_subcategory_excel, name="generate_subcategory_excel"),
 
     # Generate actual SNOW scripts
     path("generate_scripts/", views.generate_scripts, name="generate_scripts"),

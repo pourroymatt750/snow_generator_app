@@ -2,6 +2,7 @@ from django.db import models
 
 class Category(models.Model):
   name = models.CharField(max_length=100)
+  sequence = models.IntegerField(null=True, blank=True)
 
   class Meta:
     verbose_name = "Category"
@@ -13,6 +14,7 @@ class Category(models.Model):
 class SubCategory(models.Model):
   category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
   name = models.CharField(max_length=100)
+  sequence = models.IntegerField(null=True, blank=True)
 
   class Meta:
     verbose_name = "Subcategory"

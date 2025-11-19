@@ -23,10 +23,19 @@
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
 
+      <!-- Delete All Categories-->
+      {% if category_count > 0 %}
+        <form method="post" action="{% url 'delete_all_categories' %}" onsubmit="return confirm('Are you sure you want to delete ALL categories? This cannot be undone.');">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Delete All Categories</button>
+        </form>
+      {% endif %}
+
       <table class="table-box">
         <thead>
           <tr>
             <th>Category</th>
+            <th>Sequence</th>
             <th style="width: 180px;">Actions</th>
           </tr>
         </thead>
@@ -34,6 +43,7 @@
           {% for category in categories %}
             <tr>
               <td>{{ category.name }}</td>
+              <td>{{ category.sequence }}</td>
               <td>
                 <a href="{% url 'edit_category' category.id %}" class="btn btn-primary">Edit</a>
                 <a href="{% url 'delete_category' category.id %}" class="btn btn-danger">Delete</a>
@@ -64,11 +74,20 @@
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
 
+      <!-- Delete All Subcategories-->
+      {% if subcategory_count > 0 %}
+        <form method="post" action="{% url 'delete_all_subcategories' %}" onsubmit="return confirm('Are you sure you want to delete ALL subcategories? This cannot be undone.');">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Delete All Subcategories</button>
+        </form>
+      {% endif %}
+
       <table class="table-box table-wide">
         <thead>
           <tr>
             <th>Subcategory</th>
             <th>Category</th>
+            <th>Sequence</th>
             <th style="width: 180px;">Actions</th>
           </tr>
         </thead>
@@ -77,6 +96,7 @@
             <tr>
               <td>{{ sub.name }}</td>
               <td>{{ sub.category.name }}</td>
+              <td>{{ sub.sequence }}</td>
               <td>
                 <a href="{% url 'edit_subcategory' sub.id %}" class="btn btn-primary">Edit</a>
                 <a href="{% url 'delete_subcategory' sub.id %}" class="btn btn-danger">Delete</a>
