@@ -2,15 +2,16 @@
 
 **Deployment Link:** [https://snow-generator-app.onrender.com/](https://snow-generator-app.onrender.com/)
 
+**NOTE: This is deployed on the free version, so sometimes it won't work due to the database expiring and me not having time to set up a new one yet.**
+
 ---
 
 ## 📌 Overview
 
 ServiceNOW Generator App is a Django-powered tool used for uploading, managing, and generating structured ServiceNow category and subcategory data.
 
-You can include a project screenshot here:
+<img width="890" height="657" alt="readme-pic" src="https://github.com/user-attachments/assets/95621fdc-f5e7-44d6-bfb6-9748f98287ac" />
 
-![Project Screenshot](/Users/matthewpourroy/code/servicenow_script_generator_app/servicenow_script_generator_app/static/servicenow_script_generator/images/readme-pic.png)
 
 ---
 
@@ -64,6 +65,7 @@ requirements.txt
 ```
 SECRET_KEY=<your_secret_key>
 DEBUG=True
+ALLOWED_HOSTS=<urls_you_allow>
 DATABASE_URL=postgres://<user>:<pass>@<host>:<port>/<dbname>
 ```
 
@@ -87,17 +89,15 @@ python manage.py runserver
 * Add a Render PostgreSQL instance
 * Add Environment Variables:
 
-  * `DATABASE_URL`
   * `SECRET_KEY`
   * `DEBUG=False`
+  * `ALLOWED_HOSTS`
+  * `DATABASE_URL`
+
 * Use the following start command:
 
 ```
-python manage.py migrate && gunicorn config.wsgi
+gunicorn config.wsgi
 ```
 
 ---
-
-## 📧 Contact
-
-If you have feedback or want to report an issue, feel free to open a GitHub issue or reach out!
