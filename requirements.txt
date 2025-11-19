@@ -9,7 +9,7 @@ django-environ>=0.9.0
 psycopg2-binary>=2.9
 
 # Required for Render database config
-dj-database-url>=2.1.0
+dj-database-url<2.0 # Render version 
 
 # Required for serving static files on Render
 whitenoise>=6.6.0

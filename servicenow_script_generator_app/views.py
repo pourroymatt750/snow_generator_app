@@ -206,24 +206,30 @@ def upload_category_csv(request):
       # Use a dict to prevent duplicates
       categories_dict = {}
 
+      # Track skipped rows
+      not_added = []
+
       for row in reader:
         value = row.get("value").strip()
         inactive = row.get("inactive").lower()
         sequence_raw = row.get("sequence", "").strip()
 
-        # skip blank and inactive rows 
-        if value and inactive == "false":  
-          # Normalize key
-          normalized_key = "".join(value.lower().split())  # lower + remove spaces
+        # skip inactive rows 
+        if inactive == "true":
+          not_added.append(f"{value} (is inactive)")
+          continue  
+        
+        # Normalize key
+        normalized_key = "".join(value.lower().split())  # lower + remove spaces
 
-          # Only add if not already present
-          if normalized_key not in categories_dict:
-            sequence = int(sequence_raw) if sequence_raw.isdigit() else None
+        # Only add if not already present
+        if normalized_key not in categories_dict:
+          sequence = int(sequence_raw) if sequence_raw.isdigit() else None
 
-            categories_dict[normalized_key] = {
-              "name": value,
-              "sequence": sequence,
-            }
+          categories_dict[normalized_key] = {
+            "name": value,
+            "sequence": sequence,
+          }
 
         # Convert to model instances
         categories_to_create = [
@@ -232,7 +238,18 @@ def upload_category_csv(request):
         ]
 
       Category.objects.bulk_create(categories_to_create)
-      upload_message = f"✅ Successfully uploaded {len(categories_to_create)} categories from CSV."
+
+      success_count = len(categories_to_create)
+
+      # Build upload message to match subcategory style
+      if not_added:
+        upload_message = (
+          f"✅ Uploaded {success_count} categories.\n"
+          f"⚠️ Skipped {len(not_added)} categories:\n"
+          + ", ".join(not_added)
+        )
+      else:
+        upload_message = f"✅ Successfully uploaded all {success_count} categories from CSV."
 
       categories = Category.objects.all()
 
@@ -260,7 +277,9 @@ def upload_subcategory_csv(request):
 
       # Prevent duplicates using normalized keys
       subcategory_dict = {}
-      missing_categories = []
+
+      # Track skipped rows
+      not_added = []
 
       for row in reader:
         value = row.get("value").strip()
@@ -269,13 +288,14 @@ def upload_subcategory_csv(request):
         sequence_raw = row.get("sequence", "").strip()
 
         # Skip invalid rows
-        if not value or inactive != "false":
+        if inactive != "false":
+          not_added.append(f"{value} (is inactive)")
           continue
 
         try:
           category = Category.objects.get(name=category_name)
         except Category.DoesNotExist:
-          missing_categories.append(value)
+          not_added.append(f"{value} (category missing or doesn't match what's in Category table)")
           continue
 
         # Normalize key by combining category + subcategory
@@ -309,14 +329,14 @@ def upload_subcategory_csv(request):
 
       # Build upload message
       success_count = len(subcategories_to_create)
-      if missing_categories:
+      if not_added:
         upload_message = (
-          f"✅ Uploaded {success_count} unique subcategories.\n"
-          f"⚠️ Skipped {len(missing_categories)} subcategories because their category was missing/didn't match the Category table:\n"
-          + ", ".join(missing_categories)
+          f"✅ Uploaded {success_count} subcategories.\n"
+          f"⚠️ Skipped {len(not_added)} subcategories:\n"
+          + ", ".join(not_added)
         )
       else:
-        upload_message = f"✅ Successfully uploaded {success_count} unique subcategories from CSV."
+        upload_message = f"✅ Successfully uploaded all {success_count} unique subcategories from CSV."
 
       subcategories = SubCategory.objects.select_related("category").all()
 
@@ -325,7 +345,7 @@ def upload_subcategory_csv(request):
     "home.html",
     {
       "subcategories": subcategories,
-      "upload_message_subcategories": upload_message,
+      "upload_message": upload_message,
     },
   )
 

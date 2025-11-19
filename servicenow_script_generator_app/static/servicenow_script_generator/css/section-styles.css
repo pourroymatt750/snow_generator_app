@@ -49,13 +49,6 @@
   margin-bottom: 10px;
 }
 
-/* Upload success/error message */
-.upload-message {
-  margin-top: 10px;
-  font-weight: bold;
-  color: green;
-}
-
 .form-group {
   position: relative;
 }
