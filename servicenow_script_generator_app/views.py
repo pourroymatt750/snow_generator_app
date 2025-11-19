@@ -255,7 +255,7 @@ def upload_category_csv(request):
 
   return render(request, "home.html", {
     "categories": categories,
-    "upload_message": upload_message
+    "category_message": upload_message
   })
 
 def upload_subcategory_csv(request):
@@ -345,7 +345,7 @@ def upload_subcategory_csv(request):
     "home.html",
     {
       "subcategories": subcategories,
-      "upload_message": upload_message,
+      "subcategory_message": upload_message,
     },
   )
 
