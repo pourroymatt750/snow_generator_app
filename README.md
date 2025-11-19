@@ -10,7 +10,8 @@ ServiceNOW Generator App is a Django-powered tool used for uploading, managing, 
 
 You can include a project screenshot here:
 
-![Project Screenshot](/Users/matthewpourroy/code/servicenow_script_generator_app/servicenow_script_generator_app/static/servicenow_script_generator/images/readme-pic.png)
+<img width="890" height="657" alt="readme-pic" src="https://github.com/user-attachments/assets/95621fdc-f5e7-44d6-bfb6-9748f98287ac" />
+
 
 ---
 
