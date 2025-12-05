@@ -8,7 +8,7 @@
 
 ## 📌 Overview
 
-ServiceNOW Generator App is a Django-powered tool used for uploading, managing, and generating structured ServiceNow category and subcategory data.
+ServiceNOW Generator App is a tool used for generating ServiceNow category and subcategory scripts in the help desk ticket form that allows users to filter categories based on subcategories and vice versa.
 
 <img width="890" height="657" alt="readme-pic" src="https://github.com/user-attachments/assets/95621fdc-f5e7-44d6-bfb6-9748f98287ac" />
 
